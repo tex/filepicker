@@ -22,6 +22,11 @@
 	-webkit-border-radius: 0.6em !important;
 	-moz-border-radius: 0.6em !important;
 }
+.fp-list {
+	margin:0;
+	padding:0;
+	list-style-type: none;
+}
 .fp-pre-loader {
 	position:absolute;
 	top:0;
