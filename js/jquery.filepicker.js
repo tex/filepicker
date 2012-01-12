@@ -126,16 +126,6 @@
 			 */
 			fadeOutTime			: 60,
 			
-			/* The URI to be used in loading a directory. This URI will be sent a directory as a string and should return a json object
-			 * string
-			 */
-			dataSource			: '',
-			
-			/* The XHR method...POST, GET, PUT, DELETE
-			 * string
-			 */
-			requestMethod		: 'POST',
-			
 			/* Base directory to be used as the highest-level directory that the user cannot go above
 			 * string
 			 */
@@ -353,24 +343,20 @@
 					baseDirectory: this.settings.baseDirectory,
 					dir: dir
 				};
-			
-			$.ajax({
-				type	: $.trim(this.settings.requestMethod.toUpperCase()),
-				url		: $.trim(this.settings.dataSource),
-				data	: data,
-				dataType: 'json',
-				success	: function(ret) {
+
+			if (this.settings.source && jQuery.isFunction(this.settings.source)) {
+				this.settings.source(data, function(ret) {
 					var itemList = '';
 					
 					if (ret.success) {
 						itemList = self.buildItemList(ret.contents, dir);
-						
+
 						$item.after(itemList);
 						self.$filepicker.find('.fp-pre-loader').hide();
 					} else
 						alert(ret.error);
-				}
-			});
+				});
+			}
 		},
 		
 		/**
@@ -563,3 +549,4 @@
 		});
 	};
 })(jQuery);
+

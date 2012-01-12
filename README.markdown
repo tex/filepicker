@@ -14,7 +14,14 @@ It doesn't have to be a text input...it could be anything like a button or a div
 
 <pre>
 $('#item_image').filePicker({
-	dataSource	: '/admin/getdirectory',
+	source		: function(data, successFn) {
+	                       $.ajax({
+	                               type    : 'POST',
+	                               url     : '/admin/getdirectory',
+	                               data    : data,
+	                               dataType: 'json',
+	                               success : successFn
+				},
 	baseDirectory	: '/images',
 	afterSelectFile : function(data) {
 		console.log(data);
@@ -67,13 +74,6 @@ Your text input 'item_image' will be a filepicker. So how does it get the direct
 			 * string / false (if directory)
 			 */
 			'fileType'	: 'image',
-			
-			/* The date as a string that you want associated with this item (creation date or modified date). Can be any
-			 * JavaScript-readable string that can be passed into the Date() constructor. 
-			 *
-			 * string
-			 */
-			'date'		: '2010-12-12 15:45:00'
 		},
 		{ ... } //more contents objects for the rest of the contents of the directory
 	]
@@ -184,17 +184,6 @@ These are the settings and callback functions available for the plugin:
 	 * int
 	 */
 	fadeOutTime			: 60,
-	
-	/* The URI to be used in loading a directory. This URI will be sent a directory as a string and should return a 
-	 * json object 
-	 * string
-	 */
-	dataSource			: '',
-	
-	/* The XHR method...POST, GET, PUT, DELETE
-	 * string
-	 */
-	requestMethod		: 'POST',
 	
 	/* Base directory to be used as the highest-level directory that the user cannot go above
 	 * string
