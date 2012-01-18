@@ -100,7 +100,12 @@
 			 * string
 			 */
 			nestedFolderPaddingColor: '#333',
-			
+
+			/* Whether or not to show image preview
+			 * bool
+			 */
+			showPreview			: true,
+
 			/* The depth (in pixels) for every layer of nesting
 			 * int
 			 */
@@ -385,20 +390,27 @@
 			if (items.length) {
 				$.each(items, function(ind, el) {
 					var typeClass = 'fp-item',
+						imgPreview = '',
 						path = el.path.indexOf(self.settings.baseDirectory) === 0 ? el.path.replace(self.settings.baseDirectory,'') : el.path;
 						commonInputs = 	'<input type="hidden" name="type" value="' + el.type + '" />' +
-										'<input type="hidden" name="name" value="' + el.name+ '" />' +
-										'<input type="hidden" name="path" value="' + path+ '" />';
+										'<input type="hidden" name="name" value="' + el.name + '" />' +
+										'<input type="hidden" name="path" value="' + path + '" />';
 					
 					if (el.type == 'file') {
 						//check to see what type of thing it is so that we can add an appropriate icon to the item
 						switch(el.fileType) {
-							case 'image': typeClass += ' fp-image-item'; break;
+							case 'image':
+								if (self.settings.showPreview && el.preview) {
+									imgPreview += '<img class="fp-image-preview" src="' + el.preview + '"/>';
+								} else {
+									typeClass += ' fp-image-item';
+								}
+								break;
 							default: typeClass += ' fp-file-item'; break;
 						}
-						
+
 						files += 	'<li>' +
-										'<div class="' + typeClass + '">' +
+										'<div class="' + typeClass + '">' + imgPreview +
 											commonInputs +
 											'<input type="hidden" name="fileType" value="' + el.fileType + '" />' +
 											el.name +

@@ -37,7 +37,7 @@
 	font-size:18px;
 }
 .fp-item {
-	padding:6px 3px 6px 25px;
+	padding:6px 3px 6px 3px;
 	cursor:pointer;
 }
 .fp-item:hover {
@@ -48,9 +48,15 @@
 }
 .fp-directory-item {
 	background:#fff url(images/16px-folder.png) no-repeat 5px 6px;
+	padding-left: 25px;
 }
 .fp-image-item {
 	background:#fff url(images/16px-image.png) no-repeat 5px 6px;
+	padding-left: 25px;
+}
+.fp-image-preview {
+	height:64px;
+	margin-right: 8px;
 }
 .fp-directory-item-toggle {
 	

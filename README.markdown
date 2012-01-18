@@ -56,7 +56,13 @@ Your text input 'item_image' will be a filepicker. So how does it get the direct
 			 * string
 			 */
 			'path'		: '/images/whatever.png',
-			
+
+			/* The full path to a preview image with a leading slash starting at your base directory
+			 *
+			 * string
+			 */
+			'preview'	: '/images/preview/whatever.png',
+
 			/* The size of the file as an integer (false if it's a directory)
 			 *
 			 * int / false (if directory)
