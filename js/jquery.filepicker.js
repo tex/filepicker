@@ -213,10 +213,10 @@
 			this.$element = $(element);
 			
 			//determine the directory separator
-			if (this.settings.baseDirectory.indexOf('/') > -1)
-				this.directorySeparator = '/';
-			else
+			if (this.settings.baseDirectory.indexOf('/') <= -1)
 				this.directorySeparator = '\\';
+			else
+				this.directorySeparator = '/';
 			
 			//set up the click handler for the element
 			this.$element.click(function() {
