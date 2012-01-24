@@ -343,6 +343,7 @@
 		 * @param jQueryObj	item => item clicked after which to put the new UL
 		 */
 		loadDirectoryPath: function(dir, $item) {
+			dir = dir.indexOf(this.settings.baseDirectory) === 0 ? dir.replace(this.settings.baseDirectory,'') : dir;
 			var self = this,
 				data = {
 					baseDirectory: this.settings.baseDirectory,
@@ -391,10 +392,9 @@
 				$.each(items, function(ind, el) {
 					var typeClass = 'fp-item',
 						imgPreview = '',
-						path = el.path.indexOf(self.settings.baseDirectory) === 0 ? el.path.replace(self.settings.baseDirectory,'') : el.path;
 						commonInputs = 	'<input type="hidden" name="type" value="' + el.type + '" />' +
 										'<input type="hidden" name="name" value="' + el.name + '" />' +
-										'<input type="hidden" name="path" value="' + path + '" />';
+										'<input type="hidden" name="path" value="' + el.path + '" />';
 					
 					if (el.type == 'file') {
 						//check to see what type of thing it is so that we can add an appropriate icon to the item
@@ -445,7 +445,7 @@
 				data = {
 					type	: $item.find('input[name=type]').val(),
 					name	: $item.find('input[name=name]').val(),
-					path	: this.settings.baseDirectory + path
+					path	: path
 				};
 			
 			if (data.type === 'file') {
