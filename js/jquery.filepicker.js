@@ -397,16 +397,15 @@
 										'<input type="hidden" name="path" value="' + el.path + '" />';
 					
 					if (el.type == 'file') {
-						//check to see what type of thing it is so that we can add an appropriate icon to the item
-						switch(el.fileType) {
-							case 'image':
-								if (self.settings.showPreview && el.preview) {
-									imgPreview += '<img class="fp-image-preview" src="' + el.preview + '"/>';
-								} else {
-									typeClass += ' fp-image-item';
-								}
-								break;
-							default: typeClass += ' fp-file-item'; break;
+						// Check to see what type of thing it is so that we can add an appropriate icon to the item
+						if (el.fileType.indexOf('image') != -1) {
+							if (self.settings.showPreview && el.preview) {
+								imgPreview += '<img class="fp-image-preview" src="' + el.preview + '"/>';
+							} else {
+								typeClass += ' fp-image-item';
+							}
+						} else {
+							typeClass += ' fp-file-item';
 						}
 
 						files += 	'<li>' +
