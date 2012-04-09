@@ -49,7 +49,8 @@
 		/* This is the original scaffold that will be used to build the filepicker
 		 * string
 		 */
-		scaffold: 	'<div class="fp-file-picker">' +
+		scaffold: 	'<div class="fp-background"></div>' +
+					'<div class="fp-file-picker">' +
 						'<div class="fp-grad-top"></div>' +
 						'<div class="fp-grad-bottom"></div>' +
 						'<div class="fp-pre-loader">Loading...</div>' +
@@ -85,16 +86,6 @@
 			 * int
 			 */
 			topSpacing			: 0,
-			
-			/* The width of the filePicker
-			 * int
-			 */
-			width				: 400,
-			
-			/* The height of the filePicker
-			 * int
-			 */
-			height				: 300,
 			
 			/* The color (as a CSS color string) of the indentation for nested items
 			 * string
@@ -253,7 +244,7 @@
 					$(document).click(function(e) {
 						var $clicked = $(e.target);
 						
-						if ($clicked[0] == self.$element[0] || $clicked[0] == self.$filepicker[0]) 
+						if ($clicked[0] == self.$element[0] || $clicked[0] == self.$filepicker[1])
 							return;
 						
 						if ($clicked.closest('.fp-file-picker').length > 0) 
@@ -285,47 +276,13 @@
 		 */
 		buildFilePickerScaffold: function() {
 			var $scaffold = $(this.scaffold),
-				right = 0,
-				left = 0,
-				top = 0,
-				offset = this.$element.offset(),
 				$container = null;
 			
 			$scaffold.prependTo('body');
-			
-			//first do the easy calculation...where to line up the y
-			top = offset.top
-				+ this.$element.height() 
-				+ parseInt(this.$element.css('padding-top')) 
-				+ parseInt(this.$element.css('padding-bottom'))
-				+ parseInt(this.$element.css('border-top-width'))
-				+ parseInt(this.$element.css('border-bottom-width'))
-				+ this.settings.topSpacing;
-			
-			//then figure out the x based on the horizontal alignment option
-			if (this.settings.horizontalAlign == 'right') {
-				right = offset.left
-					+ this.$element.width()
-					+ parseInt(this.$element.css('padding-left')) 
-					+ parseInt(this.$element.css('padding-right'))
-					+ parseInt(this.$element.css('border-left-width'))
-					+ parseInt(this.$element.css('border-right-width'));
-				
-				$scaffold.css({right: $('body').width() - right, top: top, width:this.settings.width, height:this.settings.height});
-			} else {
-				left = offset.left;
-				$scaffold.css({left: left, top: top, width:this.settings.width, height:this.settings.height});
-			}
-			
-			$('.fp-pre-loader', $scaffold).css('padding-top', this.settings.height/2+'px');
-			
+
 			//handle the css stuff for the outer list container
 			$container = $('.fp-list-container', $scaffold);
-			$container.css({
-				width:this.settings.width, 
-				height:this.settings.height
-			});
-			
+
 			if (this.settings.showRootFolder) {
 				$container.append('<div class="top-level-item fp-directory-item fp-item">' + this.settings.baseDirectory + '</div>');
 			}
